@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>Hello World!</h1>
+
+<script>
+function chart2(pie, size=150, JSX=document.body) {
+  if(!pie) {
+    pie = [
+      { name: 'HTML', per: '30%', bg: '#1b458b' },
+      { name: 'CSS', per: '60%', bg: '#0a0' },
+      { name: 'JavaScript', per: '120%', bg: '#f80' },
+      { name: 'JSON', per: '10%', bg: '#08f' },
+      { name: 'Firebase', per: '70%', bg: '#a04' },
+      { name: 'Vanilla JS', per: '70%', bg: '#ffd700' }
+    ];
+    pie.forEach(v => v.per = parseInt(v.per) );
+  }
+
+  var CSS, JS, slice=0, HTML='';
+  
+  CSS = [
+    `
+      display: grid;
+      grid: 
+      'pie detail'
+      'pie detail'/ min-content min-content;
+    `,
+    `
+      grid-area: pie;
+      margin: 0 2rem 0 0;
+      width: ${size}px;
+      height: ${size}px;
+      border-radius: 50%;
+      box-shadow: 0px 0px 8px rgba(0,0,0,0.5);
+    `,
+    `
+      position: absolute;
+      width: ${size}px;
+      height: ${size}px;
+      clip: rect(0px, ${size}px, ${size}px, ${size/2}px);
+    `,
+    `
+      transition: 1s;
+      border-radius: 50%;
+      position: absolute;
+      width: ${size}px;
+      height: ${size}px;
+      clip: rect(0px, ${size/2}px, ${size}px, 0px);
+    `,
+    `
+      grid-area: detail;
+      display: grid;
+      grid: 
+      'i p'
+      'i p'/ max-content;
+      border: 1px solid #000;
+      align-content: space-evenly;
+    `,
+    `
+      grid-area: i;
+      padding: 0 .5rem;
+      border: 1px solid red;
+    `,
+    `
+      display: inline-block; 
+      width: 10px; 
+      height:10px;
+    `,
+    `
+      
+    `,
+    `
+      grid-area: p;
+      padding: 0 .5rem;
+      border: 1px solid blue;
+    `
+  ];
+  
+  JS = [
+    `
+      
+    `
+  ];
+  
+  HTML += `<section style="${CSS[0]}">`;
+    HTML += `<section style="${CSS[1]}">`;
+    HTML += pie.map((v,i,a) => {
+      if(i==0) { slice = 0; } 
+      else { slice += a[i-1].per; }
+
+      return `
+      <div style="${CSS[2]} 
+      transform: rotate(${slice}deg);">
+        <div style="${CSS[3]} 
+        background: ${v.bg};
+        transform: rotate(${v.per}deg);
+        "></div>
+      </div>
+      `;
+    }).join('');
+    HTML += `</section>`;
+    /*-----------------------------------------*/
+    HTML += `<section style="${CSS[4]}">`;
+      HTML += `<div style="${CSS[5]}">`
+        HTML += pie.map(v => {
+        return `
+        <div>
+          <span style="${CSS[6]}
+          background:${v.bg}"></span>
+          <span style="${CSS[7]}">${v.name}</span>
+        </div>
+        `;
+        }).join('');
+      HTML += `</div>`;
+      
+      HTML += `<div style="${CSS[8]}">`
+        HTML += pie.map(v => {
+        return `
+        <div>${v.per}%</div>
+        `;
+        }).join('');
+      HTML += `</div>`;
+      
+    HTML += `</section>`;
+  HTML += `</section>`;
+  
+  JSX.innerHTML += HTML;
+} chart2('',200);
+</script>
+
+</body>
+</html>
