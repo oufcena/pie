@@ -1,3 +1,3 @@
 # pie
 
-[Preview](https://oufcena.github.io/pie/)
+[Preview](https://oufcena.github.io/pie/pie.html)
